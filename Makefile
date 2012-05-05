@@ -15,6 +15,28 @@
 #
 # (gmake on FreeBSD)
 #
+# --- special options for building ---
+# Build to local ~/local/ directory or with extra flags like -fPIC or -O2 ?
+#
+# -> fPIC and compilation flags
+# *TODO* this is not completed! TODO using by-hand flags and _DYNAMIC in other Makefiles for now! Build with extra flags # make .... LOCAL_CFLAGS=-fPIC # and so on
+#
+#
+# -> Building as USER not as ROOT SYSTEM-WIDE and using USER installed libraries:
+#
+# 1) to use user-local libraries (in addition/in preference to system wide libraries) e.g. when you builded ssl or zmq or chaiscript yourself 
+# in user home /home/ot/local/  (so you have /home/ot/local/include/chaiscript/ and so on) add options like this, where /home/ot/local is example user 
+# directory for where he buidled the dependency libraries (ssl, zmq, protobuf, chaiscript...)
+# make ....  LOCAL_INCLUDEDIRS=-I/home/ot/local/include LOCAL_LIBDIRS=-L/home/ot/local/lib     
+#
+# 2) to install resulting Open-Transactions libraries and programs try also adding this arguments:
+# make  ....  EXECUTABLE_INSTALL_FOLDER=/home/ot/local/bin LIBRARY_INSTALL_FOLDER=/home/ot/local/lib
+#
+# After building libs as user, to have OT installed also as user, into /home/ot/local, with php5 support, use:
+# make php5 install LOCAL_INCLUDEDIRS=-I/home/ot/local/include LOCAL_LIBDIRS=-L/home/ot/local/lib EXECUTABLE_INSTALL_FOLDER=/home/ot/local/bin LIBRARY_INSTALL_FOLDER=/home/ot/local/lib
+# 
+
+# -------------------------------------
 
 MAJOR_VERSION = $(shell cat VERSION | sed -E 's~^([^\.]+)\..*~\1~')
 VERSION := $(shell cat VERSION)
@@ -24,6 +46,7 @@ OT_PLATFORM := ___OT_UNKNOWN_PLATFORM___
 OT_SERVER_DIR := $(PWD)/transaction
 TESTWALLET_DIR := $(PWD)/testwallet
 
+PREFIX = none # there is no "prefix" here, instead use variables like LOCAL_INCLUDEDIRS, EXECUTABLE_INSTALL_FOLDER as described avove
 
 # ---------------------------------------------------------------------
 
@@ -161,22 +184,21 @@ endif
 OT_UTIL_PLATFORM_INCLUDEDIRS = -I../../openssl/include
 OT_UTIL_PLATFORM_LIBDIRS = -L../../openssl
 
+# -------------------------------------
+
 
 ifeq ($(DSP), 1)
 PLATFORM_INCLUDEDIRS = -I../openssl/include
 PLATFORM_LIBDIRS = -L../openssl
-OT_SSL_INCLUDE_AND_LIBS = $(FT_FLAGS) PLATFORM_INCLUDEDIRS=$(PLATFORM_INCLUDEDIRS) PLATFORM_LIBDIRS=$(PLATFORM_LIBDIRS) OT_UTIL_PLATFORM_INCLUDEDIRS=$(OT_UTIL_PLATFORM_INCLUDEDIRS) OT_UTIL_PLATFORM_LIBDIRS=$(OT_UTIL_PLATFORM_LIBDIRS) SSL_INCLUDEDIRS=$(SSL_INCLUDEDIRS) SSL_LIBDIRS=$(SSL_LIBDIRS)
+OT_SSL_INCLUDE_AND_LIBS = $(FT_FLAGS) PLATFORM_INCLUDEDIRS=$(PLATFORM_INCLUDEDIRS) PLATFORM_LIBDIRS=$(PLATFORM_LIBDIRS) OT_UTIL_PLATFORM_INCLUDEDIRS=$(OT_UTIL_PLATFORM_INCLUDEDIRS) OT_UTIL_PLATFORM_LIBDIRS=$(OT_UTIL_PLATFORM_LIBDIRS) SSL_INCLUDEDIRS=$(SSL_INCLUDEDIRS) SSL_LIBDIRS=$(SSL_LIBDIRS) LOCAL_CFLAGS=$(LOCAL_CFLAGS)
 else
-OT_SSL_INCLUDE_AND_LIBS = $(FT_FLAGS)  SSL_INCLUDEDIRS=$(SSL_INCLUDEDIRS) SSL_LIBDIRS=$(SSL_LIBDIRS)
+OT_SSL_INCLUDE_AND_LIBS = $(FT_FLAGS)  SSL_INCLUDEDIRS=$(SSL_INCLUDEDIRS) SSL_LIBDIRS=$(SSL_LIBDIRS) LOCAL_INCLUDEDIRS=$(LOCAL_INCLUDEDIRS) LOCAL_LIBDIRS=$(LOCAL_LIBDIRS) LOCAL_CFLAGS=$(LOCAL_CFLAGS)
 endif
+
 
 # -------------------------------------
 
-
-
-
 OT_MAKE_PLATFORM_INC_LIBS = $(OT_MAKE) PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS)
-
 
 EXTRA_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./createmint.exe ../../ot-sample-data/server_data/createmint.exe
 EXTRA_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./signcontract.exe ../../ot-sample-data/client_data/signcontract.exe
@@ -201,11 +223,11 @@ extra_tools:
 	$(EXTRA_RPC_TARGETS2)
 
 otlib:
-	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
-	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)
+	@$(ECHO) '$(INFO_COLOR)Making OTLib... (normal) $(NO_COLOR)'
+	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 
 otlib_dynamic:
-	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
+	@$(ECHO) '$(INFO_COLOR)Making OTLib (dynamic)...$(NO_COLOR)'
 	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 
 server_alone:
@@ -213,7 +235,7 @@ server_alone:
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
 
 server:
-	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
+	@$(ECHO) '$(INFO_COLOR)Making OTLib... (for server)$(NO_COLOR)'
 	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
@@ -222,7 +244,7 @@ server:
 	$(EXTRA_RPC_TARGETS2)
 
 test_wallet:
-	@$(ECHO) '$(INFO_COLOR)Making OTLib...$(NO_COLOR)'
+	@$(ECHO) '$(INFO_COLOR)Making OTLib... (for test_wallet)$(NO_COLOR)'
 	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)
 	@$(ECHO) '$(INFO_COLOR)Make OT Server$(NO_COLOR)'
 	cd $(OT_SERVER_DIR) && $(OT_MAKE_PLATFORM_INC_LIBS)  TRANSPORT=ZMQ
@@ -409,7 +431,7 @@ install:
 	mkdir -p $(EXECUTABLE_INSTALL_FOLDER)
 	rm -f $(EXECUTABLE_INSTALL_FOLDER)/ot_server && cp ./transaction/transaction.exe $(EXECUTABLE_INSTALL_FOLDER)/ot_server
 	rm -f $(EXECUTABLE_INSTALL_FOLDER)/ot &&  cp ./testwallet/testwallet.exe $(EXECUTABLE_INSTALL_FOLDER)/ot
-	mkdir ~$(SUDO_USER)/.ot && cp -r ./ot-sample-data/* ~$(SUDO_USER)/.ot && chown -R $(SUDO_USER):$(SUDO_GROUP) ~$(SUDO_USER)/.ot
+	mkdir -p ~$(SUDO_USER)/.ot && cp -r ./ot-sample-data/* ~$(SUDO_USER)/.ot && chown -R $(SUDO_USER):$(SUDO_GROUP) ~$(SUDO_USER)/.ot
 #
 #	@$(ECHO) '$(OK_COLOR)Installing...$(NO_COLOR)'
 #	@mkdir -p $(EXECUTABLE_INSTALL_FOLDER)

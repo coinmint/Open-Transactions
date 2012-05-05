@@ -4,6 +4,8 @@
 # location
 #
 
+DYNAMIC_OTLIB = 1 # tigusfot temporary XXX
+
 PROGRAM = libOTLib.a 
 DEBUG_PROGRAM = libOTLibd.a 
 
@@ -131,8 +133,9 @@ endif
 # -----------------------------------------
 
 
-INCLUDEDIRS = $(PLATFORM_INCLUDEDIRS) $(SSL_INCLUDEDIRS) $(OT_INCLUDEDIRS)
-LIBDIRS = $(PLATFORM_LIBDIRS)  $(SSL_LIBDIRS) $(OT_LIBDIRS)
+# tigusoft
+INCLUDEDIRS = $(LOCAL_INCLUDEDIRS) $(PLATFORM_INCLUDEDIRS) $(SSL_INCLUDEDIRS) $(OT_INCLUDEDIRS)
+LIBDIRS = $(LOCAL_LIBDIRS) $(PLATFORM_LIBDIRS)  $(SSL_LIBDIRS) $(OT_LIBDIRS)
 
 
 LIBS = -lssl -lcrypto -lprotobuf -lmsgpack -llibboost_thread-mt
@@ -240,6 +243,10 @@ else
 CXXFLAGS   = $(INCLUDEDIRS) $(FT_FLAGS) -Wall
 CFLAGS     = $(INCLUDEDIRS) $(FT_FLAGS) -Wall
 endif
+
+# tigusoft temporary XXX  because above check is not working
+CXXFLAGS   = $(INCLUDEDIRS) $(FT_FLAGS) -Wall -fPIC
+CFLAGS     = $(INCLUDEDIRS) $(FT_FLAGS) -Wall -fPIC 
 
 #
 # Default target: the first target is the default target.

@@ -15,6 +15,20 @@ There are some good install/setup instructions here:
 https://github.com/FellowTraveler/Moneychanger
 
 
+ ---- Quick automatic build for Debian ----
+0) For Debian Stable there is ready script that downloads&builds all libs,
+then builds&installs entire OT +lib +server +php5, as USER (not root), 
+in two commands:
+  ./download-and-build-dependencies.sh # get libssl etc, verify, build
+  ./build-php-debian-local.sh          # build & local-install OT
+but first see ---> INSTALL-DebianStable-local.txt for list of 
+needed tools to "apt-get" and other info.
+
+If not - then follow to build OpenTransactions in other way.
+Either way read below for additional usage information.
+-------------------------------------------------------------------------
+
+
 1) For most, assuming you have all the necessary libraries installed already, 
    (OpenSSL 1.0.0, MsgPack, Protocol Buffers, and ZeroMQ) then you just type  
    this to build:
@@ -64,7 +78,7 @@ It will also want you to choose a security image on your machine.
 
 IN MORE DETAIL:
 
-      INSTALL-Mac-Linux-FreeBSD.txt
+      INSTALL-Mac-Linux-FreeBSD.txt and INSTALL-DebianStable-local.txt and INSTALL-DebianStable.txt
 (or)  INSTALL-Windows.txt
 (or)  INSTALL-Android.txt
 

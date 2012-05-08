@@ -11,7 +11,9 @@ If you are installing on Debian Stable also see INSTALL-DebianStable-local.txt f
 - INSTALL-Mac-Linux-FreeBSD.txt - general unix* information
 - INSTALL-DebianStable.txt - detail install with adding debian UNSTABLE (sid) libs system-wide
 
-You need Open-Transactions with changes added by <coinmint> github user/fork:
+
+Ready? Ok:
+0) get  Open-Transactions with changes added by <coinmint> github user/fork:
 https://github.com/coinmint/Open-Transactions
 (if you read this readme file then you probably have the correct version or
 it was merged into officiall).

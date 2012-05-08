@@ -1,16 +1,21 @@
 
-Follow instructions from INSTALL-Linux-local.txt
-- to install OT on Debian Stable (or alike) without need for backports, installing 
+To install OT on Debian Stable (or alike) without need for backports, installing 
 locally as user (no need for system-wide):
+follow instructions from INSTALL-Linux-local.txt
 
 
-Verifed to work on Debian Squeeze (6.0.4) (debian stable on 2012-05-08).
+Verifed to work on Debian Squeeze (6.0.4) 
+(debian stable on 2012-05-08).
 
 
 Tools needed on the system:
+
   aptitude install g++ gcc cmake libboost-all-dev git
+
 for php5 lib:
+
   aptitude install php5-dev
+
 other libs may need more tools
 
 

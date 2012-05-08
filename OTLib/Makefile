@@ -4,8 +4,6 @@
 # location
 #
 
-# DYNAMIC_OTLIB = 1 # TODO
-
 PROGRAM = libOTLib.a 
 DEBUG_PROGRAM = libOTLibd.a 
 
@@ -133,7 +131,6 @@ endif
 # -----------------------------------------
 
 
-# tigusoft
 INCLUDEDIRS = $(LOCAL_INCLUDEDIRS) $(PLATFORM_INCLUDEDIRS) $(SSL_INCLUDEDIRS) $(OT_INCLUDEDIRS)
 LIBDIRS = $(LOCAL_LIBDIRS) $(PLATFORM_LIBDIRS)  $(SSL_LIBDIRS) $(OT_LIBDIRS)
 

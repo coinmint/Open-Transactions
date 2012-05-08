@@ -16,8 +16,6 @@
 # tcl, and lisp. 
 #
 
-DYNAMIC_OTLIB=1 # tigusfot
-
 PROGRAM = testwallet.exe
 DEBUG_PROGRAM = testwallet.debug
 

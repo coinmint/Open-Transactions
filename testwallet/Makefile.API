@@ -16,8 +16,6 @@
 # Language options are c, d, csharp, java, ruby, python, perl5, php5, tcl, and lisp. 
 #
 
-DYNAMIC_OTLIB=1 # tigusfot
-
 PROGRAM = libOTAPI.a
 DEBUG_PROGRAM = libOTAPId.a
 

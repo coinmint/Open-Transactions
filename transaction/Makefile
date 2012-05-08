@@ -10,9 +10,6 @@ PROGRAM = transaction.exe
 
 DEBUG_PROGRAM = transaction.debug
 
-DYNAMIC_OTLIB=1 # tigusfot
-
-
 # Find out what platform we're on.
 UNAME := $(shell uname -s)
 

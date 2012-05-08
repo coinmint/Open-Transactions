@@ -63,6 +63,7 @@ function install_zeromq {
 function install_chaiscript {
 	start_lib_no_download "chaiscript" 
 	# TODO point to a fixed git revision of chaiscript
+	# the version used was: 41b0c7768c74d73f6510f5f92df875b27b71abae
 	
 # "https://github.com/downloads/ChaiScript/ChaiScript/" "chaiscript-3.1.0-Source.tar.bz2" "6b70678b4dcfb98b204ed3b78f4ce067780803edb019ebe967142686efed662981474bb9489ed6955d2f950d6116e80fedfccdc9d0660d795ef6d5adbc1981a5"
 #	bunzip2 chaiscript-3.1.0-Source.tar.bz2 

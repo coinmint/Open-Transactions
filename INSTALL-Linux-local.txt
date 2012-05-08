@@ -1,33 +1,38 @@
 
-This file describes how to quickly build OpenTransactions with all 
-dependencies on Linux or alike (tested on Debian Stable),
+How to quickly build OpenTransactions on Linux 
+with all dependencies installed *locally* (as given user).
 - no need to install anything system-wide more then pure debian stable tools
 - all speciall dependencies and OT itself is build all locally just as USER
 this is where it differs from INSTALL-DebianStable.txt that takes opposite direction.
 
-*Other* ways to install on linux:
-- INSTALL-Mac-Linux-FreeBSD.txt - general info
-- INSTALL-DebianStable.txt - install with adding debian unstable libs as needed
+If you are installing on Debian Stable also see INSTALL-DebianStable-local.txt for list of needed packages.
 
-This readme assumes you have Open-Transactions with changes added by:
+**Other** ways to install on linux:
+- INSTALL-Mac-Linux-FreeBSD.txt - general unix* information
+- INSTALL-DebianStable.txt - detail install with adding debian UNSTABLE (sid) libs system-wide
+
+You need Open-Transactions with changes added by <coinmint> github user/fork:
 https://github.com/coinmint/Open-Transactions
+(if you read this readme file then you probably have the correct version or
+it was merged into officiall).
 
-Get Open-Transactions sources,
-get all build tools and libs from Debian Stable (or compatible) like g++ make cmake lib-boost(all)
-php-dev(if building php) etc.
+1) INSTALL-DebianStable-local.txt has list of needed tools
 
-
-Run ./download-and-build-dependencies.sh script that will download all 
+2) ./download-and-build-dependencies.sh 
+run this script - that will download all 
 OT-dependencies from sources and build, checking downloads checksums
 (instead of ChaiScript *TODO* that needs git version)
 as result ~/local/ will contain the user-locally-installed librariers needed.
 
-Run ./build-php-debian-local.sh to build OT (the lib, utils, testwallet
+3) ./build-php-debian-local.sh 
+run it to build OT (the lib, utils, testwallet
 and PHP lib) and put it into ~/local/ as user-locally-installed.
 
-For actually using PHP module follow general instructions, ofcourse if you
+4) For actually using PHP module follow general instructions, ofcourse if you
 want to have system-wide web/PHP server using OTLib then this step will
 need to be NOT isolated to user, but you could also run a web-server 
 as an user or even in chroot etc.
+
+See also myot project for examples on using OT from PHP5 script.
 
 

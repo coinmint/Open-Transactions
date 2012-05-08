@@ -3,6 +3,9 @@
 This install process enables OT to be compiled without installing any 3rd party libraries.
 Open Transactions makes use of many new versions, so we will be installing a mix of the sid unstable packages.
 
+If instead you need to leave your system as pure Debian Stable without sid 
+unstable, then see the file INSTALL-Linux-local.txt
+
  ---- Create backports and sid apt lists: ----
 # mkdir -p /etc/apt/sources.list.d
 # echo "deb http://ftp.pl.debian.org/debian sid main" > /etc/apt/sources.list.d/sid.list

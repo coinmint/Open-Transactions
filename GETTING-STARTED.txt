@@ -15,18 +15,24 @@ There are some good install/setup instructions here:
 https://github.com/FellowTraveler/Moneychanger
 
 
+
  ---- Quick automatic build for Debian ----
 0) For Debian Stable there is ready script that downloads&builds all libs,
 then builds&installs entire OT +lib +server +php5, as USER (not root), 
 in two commands:
   ./download-and-build-dependencies.sh # get libssl etc, verify, build
   ./build-php-debian-local.sh          # build & local-install OT
-but first see ---> INSTALL-DebianStable-local.txt for list of 
-needed tools to "apt-get" and other info.
+	to run server/client: cd ~/local/ ; export LD_LIBRARY_PATH=~/local/lib
+	and then ./ot_server  and also ./ot for the client.
+	** PASSWORD ** is "test" (always in the default data) 
+see ---> INSTALL-DebianStable-local.txt for list of tools to apt-get etc.
 
 If not - then follow to build OpenTransactions in other way.
 Either way read below for additional usage information.
 -------------------------------------------------------------------------
+
+
+
 
 
 1) For most, assuming you have all the necessary libraries installed already, 
@@ -54,6 +60,7 @@ this next:
        ot_server
 
 (It will give you instructions.)
+** PASSWORD ** is "test" (always in the default data) 
 
 3) To run the test client, type:
        ot -?
@@ -212,6 +219,7 @@ cd transaction && ./transaction.exe
 OR:  ot_server   will work from any folder, if you did make install.
 
 The server requires a password and a path when it starts up. 
+** PASSWORD ** is "test" (always in the default data) 
 (It will tell you what to do.)
 
 FYI, the data folder for the server is: 

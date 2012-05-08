@@ -101,3 +101,10 @@ testwallet/_OTAPI.so
 testwallet/OTAPI.so
 testwallet/OTAPI.pyc
 testwallet/OTAPI.bundle
+testwallet/OTAPI_wrap.h
+testwallet/libotapi-php5.so
+
+
+# external dependencies download/build
+other-software/
+

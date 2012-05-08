@@ -223,7 +223,7 @@ extra_tools:
 	$(EXTRA_RPC_TARGETS2)
 
 otlib:
-	@$(ECHO) '$(INFO_COLOR)Making OTLib... (normal) $(NO_COLOR)'
+	@$(ECHO) '$(INFO_COLOR)Making OTLib... (normal - now with dynamic) $(NO_COLOR)'
 	cd OTLib && $(OT_MAKE_PLATFORM_INC_LIBS)  $(DYNAMIC_FLAG)
 
 otlib_dynamic:

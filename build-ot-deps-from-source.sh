@@ -1,5 +1,4 @@
 #!/bin/bash -e
-
 MAKE_OPT="-j 2" 
 PREFIX="${HOME}/local" # <-- where to install files
 
@@ -10,8 +9,14 @@ echo "Using proxy settings (if nothing here or not correct then install e.g. TOR
 set -x
 env | grep -i proxy
 
+function title() {
+	echo "---------------------------------------------------------------"
+	echo -- $*
+	echo "---------------------------------------------------------------"
+}
+
 function dir_for_lib() {
-	echo "Dir for lib $1" ;	dir="$1" ; rm -rf "$1" ; mkdir "$1"
+	title "$1" ; echo "Dir for lib $1" ;	dir="$1" ; rm -rf "$1" ; mkdir "$1"
 	cd "$1" # DIR change!
 }
 
@@ -75,7 +80,4 @@ function install_chaiscript {
 ( install_zeromq )
 ( install_chaiscript )
 
-echo "---------------------------------------------------------------"
-echo "All done"
-echo "---------------------------------------------------------------"
 

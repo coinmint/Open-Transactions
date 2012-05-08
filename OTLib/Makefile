@@ -4,7 +4,7 @@
 # location
 #
 
-DYNAMIC_OTLIB = 1 # tigusfot temporary XXX
+# DYNAMIC_OTLIB = 1 # TODO
 
 PROGRAM = libOTLib.a 
 DEBUG_PROGRAM = libOTLibd.a 
@@ -244,9 +244,9 @@ CXXFLAGS   = $(INCLUDEDIRS) $(FT_FLAGS) -Wall
 CFLAGS     = $(INCLUDEDIRS) $(FT_FLAGS) -Wall
 endif
 
-# tigusoft temporary XXX  because above check is not working
-CXXFLAGS   = $(INCLUDEDIRS) $(FT_FLAGS) -Wall -fPIC
-CFLAGS     = $(INCLUDEDIRS) $(FT_FLAGS) -Wall -fPIC 
+# coinmint TODO temporary XXX  because above check is not working
+# CXXFLAGS   = $(INCLUDEDIRS) $(FT_FLAGS) -Wall -fPIC
+# CFLAGS     = $(INCLUDEDIRS) $(FT_FLAGS) -Wall -fPIC 
 
 #
 # Default target: the first target is the default target.

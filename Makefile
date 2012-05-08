@@ -16,12 +16,6 @@
 # (gmake on FreeBSD)
 #
 # --- special options for building ---
-# Build to local ~/local/ directory or with extra flags like -fPIC or -O2 ?
-#
-# -> fPIC and compilation flags
-# *TODO* this is not completed! TODO using by-hand flags and _DYNAMIC in other Makefiles for now! Build with extra flags # make .... LOCAL_CFLAGS=-fPIC # and so on
-#
-#
 # -> Building as USER not as ROOT SYSTEM-WIDE and using USER installed libraries:
 #
 # 1) to use user-local libraries (in addition/in preference to system wide libraries) e.g. when you builded ssl or zmq or chaiscript yourself 
@@ -198,7 +192,7 @@ endif
 
 # -------------------------------------
 
-OT_MAKE_PLATFORM_INC_LIBS = $(OT_MAKE) PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS)
+OT_MAKE_PLATFORM_INC_LIBS = $(OT_MAKE) PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) $(DYNAMIC_FLAG)
 
 EXTRA_TARGETS1 += cd util/otcreatemint && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./createmint.exe ../../ot-sample-data/server_data/createmint.exe
 EXTRA_TARGETS2 += cd util/signcontract && $(OT_MAKE_PLATFORM_INC_LIBS)  && cp ./signcontract.exe ../../ot-sample-data/client_data/signcontract.exe
@@ -348,7 +342,7 @@ php5:
 	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=python clean
 	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=ruby clean
 	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=java clean
-	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=php5
+	cd $(TESTWALLET_DIR) && $(OT_MAKE) -f Makefile.API PLATFORM=$(OT_PLATFORM) $(OT_SSL_INCLUDE_AND_LIBS) TRANSPORT=ZMQ LANGUAGE=php5 $(DYNAMIC_FLAG)
 	@$(ECHO) '$(INFO_COLOR)Making OT Tools...$(NO_COLOR)'
 	$(EXTRA_RPC_TARGETS1)
 	$(EXTRA_RPC_TARGETS2)
